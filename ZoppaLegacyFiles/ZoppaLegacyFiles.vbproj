@@ -3,6 +3,27 @@
   <PropertyGroup>
     <RootNamespace>ZoppaLegacyFiles</RootNamespace>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright © 2022 zoppa software</Copyright>
+	<VersionPrefix>0.9.0</VersionPrefix>
+	<Title>ZoppaLegacyFiles</Title>
+	<Authors>zoppa software</Authors>
+	<PackageProjectUrl>https://github.com/zoppa-software/ZoppaLegacyFiles</PackageProjectUrl>
+	<PackageReadmeFile>NugetReadme.md</PackageReadmeFile>
+	<RepositoryUrl>https://github.com/zoppa-software/ZoppaLegacyFiles</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\NugetReadme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
