@@ -24,6 +24,53 @@ CSVファイルの読み込みは `"` の扱いについて、シンプルに `"
 EXCELのCSVファイルの読み込みルールについて明確にはわからなかったため、私の理解した範囲で適用しています。  
 #### 使い方
 多量のデータの読み込み、書き込みを行うためにCSVファイルはストリームで行います。  
+``` vb
+' CSVの各列の値をCsvItemへ変換し配列で取得する
+Dim values1 As New List(Of CsvItem())()
+Using sr As New CsvStreamReader("CsvFiles\Sample1.csv", Encoding.GetEncoding("shift_jis"))
+    For Each v In sr
+        values1.Add(v.Items)
+    Next
+End Using
+
+' CSVの列数とパラメータ数が一致するコンストラクタを使用してインスタンスを生成します
+Dim values2 As New List(Of Sample1)()
+Using sr As New CsvStreamReader("CsvFiles\Sample1.csv", Encoding.GetEncoding("shift_jis"))
+    For Each v In sr.Select(Of Sample1)(topSkip:=1)
+        values2.Add(v)
+    Next
+End Using
+
+' パラメータの型を引数で指定して、一致するコンストラクタを使用してインスタンスを生成します
+Dim values3 As New List(Of Sample1)()
+Using sr As New CsvStreamReader("CsvFiles\Sample1.csv", Encoding.GetEncoding("shift_jis"))
+    For Each v In sr.Select(Of Sample1)({DataTypeConverter.StringData, DataTypeConverter.StringData, DataTypeConverter.StringData}, topSkip:=1)
+        values3.Add(v)
+    Next
+End Using
+```
+
+以下は`Sample1.csv`の内容です。  
+```
+項目1,項目2,項目3
+"1","2","3"
+a,b,c
+1,2,3
+```
+以下は読み込み結果をバインドするクラスの定義です。  
+``` vb
+Class Sample1
+    Public ReadOnly Property Item1 As String
+    Public ReadOnly Property Item2 As String
+    Public ReadOnly Property Item3 As String
+
+    Public Sub New(s1 As String, s2 As String, s3 As String)
+        Me.Item1 = s1
+        Me.Item2 = s2
+        Me.Item3 = s3
+    End Sub
+End Class
+```
 
 ### **INIファイル**
 #### 実装仕様

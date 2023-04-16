@@ -100,11 +100,4 @@ Class Sample1
         Me.Item3 = s3
     End Sub
 
-    Public Overrides Function Equals(obj As Object) As Boolean
-        Dim other = TryCast(obj, Sample1)
-        Return Me.Item1 = other.Item1 AndAlso
-                   Me.Item2 = other.Item2 AndAlso
-                   Me.Item3 = other.Item3
-    End Function
-
 End Class
