@@ -9,7 +9,7 @@ Namespace Csv
         Implements IFileItem
 
         ' 読み込み専用メモリ
-        Private mRom As ReadOnlyMemory
+        Private ReadOnly mRom As ReadOnlyMemory
 
         ''' <summary>コンストラクタ。</summary>
         ''' <param name="rom">読み込み専用メモリ。</param>

@@ -6,7 +6,7 @@ Public MustInherit Class SplitStreamWriter
     Implements IDisposable
 
     ' 出力ストリーム
-    Private mWriter As IO.StreamWriter
+    Private ReadOnly mWriter As IO.StreamWriter
 
     ' カーソル位置は左端ならば真
     Private mCursorHome As Boolean = True

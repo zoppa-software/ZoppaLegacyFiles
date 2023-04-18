@@ -186,9 +186,6 @@ Public MustInherit Class SplitStreamReader(Of TSpliter As {Spliter(Of TItem)}, T
         ' 列挙子と分割機能を取得
         Dim pair = Me.PreProcessing(topSkip)
 
-        Dim constructor As ConstructorInfo = Nothing
-        Dim dataTypes As IDataType() = Nothing
-
         ' 1. カレントの情報を取得
         ' 2. 制限なしか指定行数内ならば処理する
         ' 3. 変換メソッドを使用して取得
@@ -293,9 +290,6 @@ Public MustInherit Class SplitStreamReader(Of TSpliter As {Spliter(Of TItem)}, T
                                          Optional topSkip As Integer = 0, Optional rowLimit As Integer = -1) As IEnumerable(Of T)
         ' 列挙子と分割機能を取得
         Dim pair = Me.PreProcessing(topSkip)
-
-        Dim constructor As ConstructorInfo = Nothing
-        Dim dataTypes As IDataType() = Nothing
 
         ' 1. カレントの情報を取得
         ' 2. 制限なしか指定行数内ならば処理する

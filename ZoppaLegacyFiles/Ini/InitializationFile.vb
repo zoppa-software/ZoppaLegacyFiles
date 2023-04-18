@@ -10,10 +10,10 @@ Namespace Ini
     Public NotInheritable Class InitializationFile
 
         ''' <summary>セクション別にキーと値を保持するディクショナリ。</summary>
-        Private mKeyAndValue As New Dictionary(Of Section, Dictionary(Of String, KeyAndValue))()
+        Private ReadOnly mKeyAndValue As New Dictionary(Of Section, Dictionary(Of String, KeyAndValue))()
 
         ''' <summary>INIファイルの各行の情報です。</summary>
-        Private mIniLines As New List(Of IIniLine)()
+        Private ReadOnly mIniLines As New List(Of IIniLine)()
 
         ''' <summary>コンストラクタ。</summary>
         Public Sub New()
@@ -286,10 +286,17 @@ Namespace Ini
             End If
         End Function
 
+        ''' <summary>キーを指定して値を設定します（無名セクション）</summary>
+        ''' <param name="key">キー。</param>
+        ''' <param name="newValue">値。</param>
         Public Sub SetNoSecssionValue(key As String, newValue As String)
             Me.SetValue(Nothing, key, newValue)
         End Sub
 
+        ''' <summary>セクションとキーを指定して、値を設定します。</summary>
+        ''' <param name="section">セクション名。</param>
+        ''' <param name="key">キー。</param>
+        ''' <param name="newValue">値。</param>
         Public Sub SetValue(secssion As String, key As String, newValue As String)
             Dim sec = If(secssion Is Nothing, New Section(), New Section(secssion))
             Dim val As KeyAndValue = Nothing
@@ -323,10 +330,15 @@ Namespace Ini
             End If
         End Sub
 
+        ''' <summary>キーを指定して値を削除します（無名セクション）</summary>
+        ''' <param name="key">キー。</param>
         Public Sub RemoveValue(key As String)
             Me.RemoveValue(Nothing, key)
         End Sub
 
+        ''' <summary>セクションとキーを指定して、値を削除します。</
+        ''' <param name="section">セクション名。</param>
+        ''' <param name="key">キー。</param>
         Public Sub RemoveValue(secssion As String, key As String)
             Dim sec = If(secssion Is Nothing, New Section(), New Section(secssion))
             Dim val As KeyAndValue = Nothing
@@ -343,6 +355,9 @@ Namespace Ini
             End If
         End Sub
 
+        ''' <summary>INIファイルを保存します。</summary>
+        ''' <param name="path">ファイルパス。</param>
+        ''' <param name="encode">エンコード。</param>
         Public Sub Save(path As String, Optional encode As Text.Encoding = Nothing)
             ' エンコードの指定が無ければデフォルトエンコードを設定
             Dim enc = encode
@@ -355,6 +370,8 @@ Namespace Ini
             End Using
         End Sub
 
+        ''' <summary>INIファイルを保存します。</summary>
+        ''' <param name="sw">書き込むストリーム。</param>
         Public Sub Save(sw As TextWriter)
             Me.AjustLines()
 
@@ -363,6 +380,7 @@ Namespace Ini
             Next
         End Sub
 
+        ''' <summary>行番号を再割り当てします。</summary>
         Private Sub AjustLines()
             Me.mIniLines.Sort(Function(l, r) l.LineNo.CompareTo(r.LineNo))
             For i As Integer = 0 To Me.mIniLines.Count - 1

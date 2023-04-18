@@ -5,40 +5,40 @@ Option Explicit On
 Public Module DataTypeConverter
 
     ' BooleanDataType
-    Private mBooleanData As Lazy(Of BooleanDataType) = New Lazy(Of BooleanDataType)(Function() New BooleanDataType())
+    Private ReadOnly mBooleanData As New Lazy(Of BooleanDataType)(Function() New BooleanDataType())
 
     ' ByteArrayDataType
-    Private mByteArrayData As Lazy(Of ByteArrayDataType) = New Lazy(Of ByteArrayDataType)(Function() New ByteArrayDataType())
+    Private ReadOnly mByteArrayData As New Lazy(Of ByteArrayDataType)(Function() New ByteArrayDataType())
 
     ' ByteDataType
-    Private mByteData As Lazy(Of ByteDataType) = New Lazy(Of ByteDataType)(Function() New ByteDataType())
+    Private ReadOnly mByteData As New Lazy(Of ByteDataType)(Function() New ByteDataType())
 
     ' DateTimeDataType
-    Private mDateTimeData As Lazy(Of DateTimeDataType) = New Lazy(Of DateTimeDataType)(Function() New DateTimeDataType())
+    Private ReadOnly mDateTimeData As New Lazy(Of DateTimeDataType)(Function() New DateTimeDataType())
 
     ' DecimalDataType
-    Private mDecimalData As Lazy(Of DecimalDataType) = New Lazy(Of DecimalDataType)(Function() New DecimalDataType())
+    Private ReadOnly mDecimalData As New Lazy(Of DecimalDataType)(Function() New DecimalDataType())
 
     ' DoubleDataType
-    Private mDoubleData As Lazy(Of DoubleDataType) = New Lazy(Of DoubleDataType)(Function() New DoubleDataType())
+    Private ReadOnly mDoubleData As New Lazy(Of DoubleDataType)(Function() New DoubleDataType())
 
     ' IntegerDataType
-    Private mIntegerData As Lazy(Of IntegerDataType) = New Lazy(Of IntegerDataType)(Function() New IntegerDataType())
+    Private ReadOnly mIntegerData As New Lazy(Of IntegerDataType)(Function() New IntegerDataType())
 
     ' LongDataType
-    Private mLongData As Lazy(Of LongDataType) = New Lazy(Of LongDataType)(Function() New LongDataType())
+    Private ReadOnly mLongData As New Lazy(Of LongDataType)(Function() New LongDataType())
 
     ' ShortDataType
-    Private mShortData As Lazy(Of ShortDataType) = New Lazy(Of ShortDataType)(Function() New ShortDataType())
+    Private ReadOnly mShortData As New Lazy(Of ShortDataType)(Function() New ShortDataType())
 
     ' SingleDataType
-    Private mSingleData As Lazy(Of SingleDataType) = New Lazy(Of SingleDataType)(Function() New SingleDataType())
+    Private ReadOnly mSingleData As New Lazy(Of SingleDataType)(Function() New SingleDataType())
 
     ' StringDataType
-    Private mStringData As Lazy(Of StringDataType) = New Lazy(Of StringDataType)(Function() New StringDataType())
+    Private ReadOnly mStringData As New Lazy(Of StringDataType)(Function() New StringDataType())
 
     ' TimeSpanDataType
-    Private mTimeSpanData As Lazy(Of TimeSpanDataType) = New Lazy(Of TimeSpanDataType)(Function() New TimeSpanDataType())
+    Private ReadOnly mTimeSpanData As New Lazy(Of TimeSpanDataType)(Function() New TimeSpanDataType())
 
     ''' <summary>BooleanDataType を取得します。</summary>
     ''' <returns>BooleanDataType。</returns>
@@ -168,6 +168,9 @@ Public Module DataTypeConverter
             Case Else
                 If itemType.IsEnum Then
                     Dim tp = Type.GetType($"{GetType(DataType).Namespace}.EnumDataType`1[[{itemType.AssemblyQualifiedName}]]")
+                    Return TryCast(Activator.CreateInstance(tp), IDataType)
+                ElseIf itemType.IsClass OrElse itemType.IsValueType Then
+                    Dim tp = Type.GetType($"{GetType(DataType).Namespace}.ObjectDataType`1[[{itemType.AssemblyQualifiedName}]]")
                     Return TryCast(Activator.CreateInstance(tp), IDataType)
                 End If
         End Select

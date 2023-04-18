@@ -142,5 +142,6 @@ Assert.Equal(";#=:烏" & vbCrLf & "改行テスト" & vbNullChar, a6.UnEscape)
 以上、簡単な説明となります。**ライブラリの詳細は[Githubのページ](https://github.com/zoppa-software/ZoppaLegacyFiles)を参照してください。**
 
 ## 更新について
+* 1.0.0 ドキュメント作成完了、オブジェクトバインドのサンプル追加。
 * 0.9.0 ドキュメント作成途中、機能リファクタリング
 * 0.0.9 ドキュメント作成途中

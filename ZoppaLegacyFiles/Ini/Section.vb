@@ -13,8 +13,12 @@ Namespace Ini
         ''' <summary>セクションの名前を取得します。</summary>
         Public ReadOnly Property Name As String
 
+        ''' <summary>行位置を取得します（途中挿入用に小数を指定可）</summary>
+        ''' <returns>行位置。</returns>
         Public Property LineNo As Double Implements IIniLine.LineNo
 
+        ''' <summary>書き込み用文字列を取得します。</summary>
+        ''' <returns>書き込み文字列。</returns>
         Public ReadOnly Property WriteStr As String Implements IIniLine.WriteStr
 
         ''' <summary>コンストラクタ。</summary>
@@ -34,8 +38,8 @@ Namespace Ini
 
         ''' <summary>コンストラクタ。</summary>
         ''' <param name="secname">セクション名。</param>
-        ''' <param name="row"></param>
-        ''' <param name="str"></param>
+        ''' <param name="row">行位置。</param>
+        ''' <param name="str">書き込む文字列。</param>
         Public Sub New(secname As String, row As Integer, str As String)
             Me.DefaultSection = False
             Me.Name = secname

@@ -10,7 +10,7 @@
 * INIファイル  
 
 ## 比較、または特徴
-説明でもありますが、仕様が曖昧なデータ形式の実装例として、参考にしていただきたいと思います。  
+説明でもありますが、仕様が曖昧なデータ形式の一つの実装例として使用していただきたいと思います（多分、全てのニーズには対応できません）    
 業務で使用しているとエスケープについても個々のプロジェクトでも個性があるため、エスケープ解除後の文字列、エスケープ解除前の文字列を `UnEscape`プロパティ、`Text`プロパティで取得できるようにしています。  
 
 ## 依存関係  
@@ -71,6 +71,26 @@ Class Sample1
     End Sub
 End Class
 ```
+  
+コンストラクタのパラメータに使用できる型は以下のようになります。
+|パラメータの型|処理内で対応する型|パラメータの型を指定する機能で<br/>指定する値|備考|
+|:--|:--|:--|:--|
+|Boolean|BooleanDataType|DataTypeConverter.BooleanData||
+|Byte()|ByteArrayDataType|DataTypeConverter.ByteArrayData|文字列を16進数と見立てて2文字ずつ変換します。|
+|Byte|ByteDataType|DataTypeConverter.ByteData||
+|Date|DateTimeDataType|DataTypeConverter.DateTimeData|日付変換はDateTime.TryParseメソッドで行います。<br>DateTimeDataType.DefaultFormatプロパティで書式を設定するとDateTime.TryParseExactで変換を行います。|
+|Decimal|DecimalDataType|DataTypeConverter.DecimalData||
+|Double|DoubleDataType|DataTypeConverter.DoubleData||
+|列挙型|EnumDataType(Of 列挙型)|New EnumDataType(Of 列挙型)で<br/>生成して指定してください||
+|Integer|IntegerDataType|DataTypeConverter.IntegerData||
+|Long|LongDataType|DataTypeConverter.LongData||
+|オブジェクト|ObjectDataType(Of 型)|New ObjectDataType(Of 型)で<br/>生成して指定してください|オブジェクト生成はObjectProvider.SetCreater(Of 型)メソッドで登録したメソッドで行います。登録がない場合は`Nothing`になります。|
+|Short|ShortDataType|DataTypeConverter.ShortData||
+|Single|SingleDataType|DataTypeConverter.SingleData||
+|String|StringDataType|DataTypeConverter.StringData||
+|TimeSpan|TimeSpanData|DataTypeConverter.TimeSpan|時刻変換はTimeSpan.TryParseメソッドで行います。<br>TimeSpanDataType.DefaultFormatプロパティで書式を設定するとTimeSpan.TryParseExactで変換を行います。|
+
+ObjectSampleプロジェクトも参照いただければ幸いです。
 
 ### **INIファイル**
 #### 実装仕様
@@ -151,7 +171,7 @@ Assert.Equal(";#=:烏" & vbCrLf & "改行テスト" & vbNullChar, a6.UnEscape)
 ```
 
 ## インストール
-ソースをビルドして `ZoppaDataForms.dll` ファイルを生成して参照してください。  
+ソースをビルドして `ZoppaLegacyFiles.dll` ファイルを生成して参照してください。  
 
 ## 作成情報
 * 造田　崇（zoppa software）
