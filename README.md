@@ -41,6 +41,12 @@ Using sr As New CsvStreamReader("CsvFiles\Sample1.csv", Encoding.GetEncoding("sh
     Next
 End Using
 
+' 上記のコードは LINQ と組み合わせると以下のようになります
+Dim values2_1 As List(Of Sample1)()
+Using sr As New CsvStreamReader("CsvFiles\Sample1.csv", Encoding.GetEncoding("shift_jis"))
+    values2_1 = sr.Select(Of Sample1)(topSkip:=1).ToList()
+End Using
+
 ' パラメータの型を引数で指定して、一致するコンストラクタを使用してインスタンスを生成します
 Dim values3 As New List(Of Sample1)()
 Using sr As New CsvStreamReader("CsvFiles\Sample1.csv", Encoding.GetEncoding("shift_jis"))
